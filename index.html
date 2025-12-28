@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>YEA | Ground-Effect Vehicle Innovation</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <style>
+        :root {
+            --bg-color: #000000;
+            --text-white: #ffffff;
+            --text-gray-1: #f5f5f7;
+            --text-gray-2: #a1a1a6;
+            --text-gray-3: #424245;
+            --apple-blue: #0071e3;
+        }
+
+        body, html {
+            margin: 0; padding: 0;
+            background-color: var(--bg-color);
+            color: var(--text-gray-1);
+            font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Helvetica Neue", sans-serif;
+            -webkit-font-smoothing: antialiased;
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+        }
+
+        nav {
+            position: fixed; top: 0; width: 100%; height: 44px;
+            background: rgba(0, 0, 0, 0.8); backdrop-filter: saturate(180%) blur(20px);
+            z-index: 1000; display: flex; justify-content: center; align-items: center;
+        }
+        .nav-content { width: 90%; max-width: 1024px; display: flex; justify-content: space-between; font-size: 12px; color: var(--text-gray-2); }
+
+        #main-site { 
+            display: block; 
+            transform-origin: center top;
+            transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.6s ease;
+        }
+        
+        #contact-page { 
+            display: none; 
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100vh; 
+            flex-direction: column; 
+            align-items: center; 
+            justify-content: center;
+            background: #000;
+            z-index: 2000;
+            opacity: 0;
+            transform: translateY(50px);
+        }
+
+        section {
+            min-height: 100vh; padding: 120px 20px;
+            display: flex; flex-direction: column; align-items: center; justify-content: center;
+            box-sizing: border-box; text-align: center;
+            border-bottom: 1px solid #111;
+        }
+        .container { max-width: 1000px; width: 100%; }
+
+        .section-label { font-size: 14px; font-weight: 600; color: var(--text-gray-2); margin-bottom: 20px; letter-spacing: 0.1em; text-transform: uppercase; }
+        .hero-title { font-size: clamp(40px, 8vw, 84px); font-weight: 700; line-height: 1.05; letter-spacing: -0.015em; color: var(--text-white); margin-bottom: 0.3em; }
+        .sub-title { font-size: clamp(28px, 5vw, 48px); font-weight: 600; line-height: 1.1; margin-bottom: 30px; color: var(--text-gray-1); }
+        .description { font-size: 21px; font-weight: 400; line-height: 1.45; color: var(--text-gray-2); max-width: 750px; margin: 0 auto; }
+        .emphasize { color: var(--text-white); font-weight: 600; }
+
+        .media-box {
+            width: 100%; border-radius: 0; background: #000;
+            border: none; margin: 60px 0;
+            display: flex; align-items: center; justify-content: center;
+            overflow: hidden; min-height: 400px;
+        }
+        .media-box img { width: 100%; height: 100%; object-fit: contain; }
+
+        .team-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 24px; margin-top: 60px; width: 100%; }
+        .member-card { background: #111; border-radius: 24px; padding: 40px 20px; text-align: center; }
+        
+        .member-photo { 
+            width: 100px; height: 100px; border-radius: 50%; 
+            background: #222; margin: 0 auto 24px; border: none; overflow: hidden; 
+        }
+        .member-photo img { width: 100%; height: 100%; object-fit: cover; }
+
+        .feature-grid { 
+            display: grid; grid-template-columns: repeat(2, 1fr); gap: 40px; 
+            text-align: left; margin-top: 60px; width: 100%; 
+        }
+        
+        @media (max-width: 768px) {
+            .feature-grid { grid-template-columns: 1fr; }
+        }
+
+        .feature-item { border-top: 1px solid #222; padding-top: 24px; }
+        .feature-item h5 { font-size: 20px; font-weight: 600; margin-bottom: 12px; color: var(--text-white); }
+        .feature-item p { font-size: 16px; color: var(--text-gray-2); }
+
+        .reveal { opacity: 0; transform: translateY(40px); }
+        .blue-link { color: var(--apple-blue); text-decoration: none; font-size: 21px; font-weight: 500; cursor: pointer; transition: 0.3s; }
+        .blue-link:hover { opacity: 0.7; }
+        .contact-item { font-size: clamp(18px, 4vw, 24px); margin: 15px 0; font-weight: 300; letter-spacing: 0.5px; }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <div class="nav-content">
+            <span style="font-weight: 600; color: white;">YEA</span>
+            <span id="nav-tag">Ground-Effect Vehicle Innovation</span>
+        </div>
+    </nav>
+
+    <div id="main-site">
+        <section>
+            <div class="container">
+                <h1 class="hero-title reveal">Above the surface. <br>Beyond the road.</h1>
+                <p class="description reveal" style="font-size: 28px; color: white; font-weight: 500; margin-bottom: 10px;">Starting at RMB 5,499</p>
+                <div class="media-box reveal">
+                    <img src="图一.jpg" alt="GEV Overview">
+                </div>
+                <p class="description reveal">A payload-capable GEV designed for <span class="emphasize">mixed-surface environments</span> where infrastructure is unavailable.</p>
+            </div>
+        </section>
+
+        <section>
+            <div class="container">
+                <span class="section-label reveal">The Team</span>
+                <h2 class="sub-title reveal">Driven by <span style="color: var(--text-gray-3)">Future Mechanics.</span></h2>
+                <div class="team-grid">
+                    <div class="member-card reveal">
+                        <div class="member-photo"><img src="Yake.jpg" alt="Yake"></div>
+                        <h4>Yake</h4>
+                        <p>3D Modeling & Flight-Control Integration.</p>
+                    </div>
+                    <div class="member-card reveal">
+                        <div class="member-photo"><img src="Eric.jpg" alt="Eric"></div>
+                        <h4>Eric</h4>
+                        <p>Programming & Market Research.</p>
+                    </div>
+                    <div class="member-card reveal">
+                        <div class="member-photo"><img src="Alex.jpg" alt="Alex"></div>
+                        <h4>Alex</h4>
+                        <p>Project Planning & Electronics Support.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <div class="container">
+                <span class="section-label reveal">Opportunity</span>
+                <h2 class="sub-title reveal">The Transportation Gap.</h2>
+                <div class="media-box reveal"><img src="图二.jpg" alt="Context"></div>
+                <p class="description reveal">Missions in shorelines often fail due to slow motorboats or high-cost helicopters.</p>
+            </div>
+        </section>
+
+        <section>
+            <div class="container">
+                <span class="section-label reveal">Innovation</span>
+                <h2 class="sub-title reveal">Aerodynamics Reimagined.</h2>
+                <div class="media-box reveal"><img src="图四.jpg" alt="Aero"></div>
+                <div class="feature-grid">
+                    <div class="feature-item reveal">
+                        <h5>Closed-loop Stability</h5>
+                        <p>Onboard IMU and GPS sensing to continuously adjust thrust and control surfaces.</p>
+                    </div>
+                    <div class="feature-item reveal">
+                        <h5>Ventral Keel Fin</h5>
+                        <p>Underbody stabilizing surface added to increase yaw damping and directional stability.</p>
+                    </div>
+                    <div class="feature-item reveal">
+                        <h5>Integrated Payload Bay</h5>
+                        <p>Internal fuselage cabin that keeps mass near the center of gravity and protects cargo.</p>
+                    </div>
+                    <div class="feature-item reveal">
+                        <h5>Wing-area Optimization</h5>
+                        <p>Balanced wing geometry to strengthen ground-effect without adding unnecessary drag.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <div class="container">
+                <span class="section-label reveal">Validation</span>
+                <h2 class="sub-title reveal">Driven by Data.</h2>
+                <div class="media-box reveal"><img src="图三.jpg" alt="Data"></div>
+                <p class="description reveal">Validated through a test-driven engineering process from CAD modeling to measured field behavior.</p>
+            </div>
+        </section>
+
+        <section>
+            <div class="container">
+                <span class="section-label reveal">Market</span>
+                <h2 class="sub-title reveal">Mission Ready.</h2>
+                <div class="media-box reveal"><img src="图五.jpg" alt="Market"></div>
+                <p class="description reveal">Targeting emergency response, environmental research, and field operations teams.</p>
+            </div>
+        </section>
+
+        <section>
+            <div class="container">
+                <span class="section-label reveal">Competition</span>
+                <h2 class="sub-title reveal">Unrivaled Efficiency.</h2>
+                <div class="media-box reveal"><img src="图六.jpg" alt="Comp"></div>
+                <p class="description reveal">Runway-free operation with higher payload-distance efficiency than traditional drones.</p>
+            </div>
+        </section>
+
+        <section>
+            <div class="container">
+                <span class="section-label reveal">Go-to-Market</span>
+                <h2 class="sub-title reveal">Scaling Innovation.</h2>
+                <div class="media-box reveal"><img src="图七.jpg" alt="Roadmap"></div>
+                <p class="description reveal">Leading with evidence-based demonstrations and pilot engagements.</p>
+            </div>
+        </section>
+
+        <section>
+            <div class="container">
+                <span class="section-label reveal">Business Model</span>
+                <h2 class="sub-title reveal">Sustainable Growth.</h2>
+                <div class="feature-grid">
+                    <div class="feature-item reveal">
+                        <h5>Pilot Deployments</h5>
+                        <p>Paid trial packages including prototype, on-site support, and operator training.</p>
+                    </div>
+                    <div class="feature-item reveal">
+                        <h5>Direct Sales & Leases</h5>
+                        <p>Selling or leasing validated GEV units to agencies and labs.</p>
+                    </div>
+                    <div class="feature-item reveal">
+                        <h5>Recurring Service</h5>
+                        <p>Maintenance, spare parts, and specialized mission-specific sensor configurations.</p>
+                    </div>
+                    <div class="feature-item reveal">
+                        <h5>Licensing</h5>
+                        <p>Partners pay to integrate our airframe and control approach into their platforms.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section style="background: #000;">
+            <div class="container">
+                <span class="section-label reveal">Our Vision</span>
+                <h2 class="hero-title reveal" style="font-size: clamp(40px, 6vw, 64px);">Support Our Mission.</h2>
+                <div class="media-box reveal"><img src="图八.jpg" alt="Vision"></div>
+                <p class="reveal" style="font-size: 18px; color: var(--text-gray-3); margin-top: 40px;">
+                    TOTAL STARTUP REQUIREMENT: <span style="color: var(--text-white); font-weight: 600;">RMB 50,000</span>
+                </p>
+                <div class="reveal" style="margin-top: 60px;">
+                    <span class="blue-link" onclick="showContact()">Contact Team YEA ></span>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <div id="contact-page">
+        <div class="contact-item">Yk18108162992@163.com</div>
+        <div class="contact-item">ar1kk1226@gmail.com</div>
+        <div class="contact-item">19983174572@163.com</div>
+        <div style="margin-top: 50px;">
+            <span class="blue-link" style="font-size: 16px;" onclick="hideContact()"> < Back to Project</span>
+        </div>
+    </div>
+
+    <script>
+        gsap.registerPlugin(ScrollTrigger);
+
+        function showContact() {
+            const main = document.getElementById('main-site');
+            const contact = document.getElementById('contact-page');
+
+            gsap.to(main, {
+                scale: 0.95,
+                opacity: 0,
+                duration: 0.6,
+                ease: "power2.inOut",
+                onComplete: () => {
+                    main.style.visibility = 'hidden';
+                }
+            });
+
+            contact.style.display = 'flex';
+            gsap.to(contact, {
+                opacity: 1,
+                y: 0,
+                duration: 0.8,
+                delay: 0.1,
+                ease: "expo.out"
+            });
+
+            document.getElementById('nav-tag').innerText = 'Contact Us';
+        }
+
+        function hideContact() {
+            const main = document.getElementById('main-site');
+            const contact = document.getElementById('contact-page');
+
+            gsap.to(contact, {
+                opacity: 0,
+                y: 50,
+                duration: 0.5,
+                ease: "power2.in",
+                onComplete: () => {
+                    contact.style.display = 'none';
+                }
+            });
+
+            main.style.visibility = 'visible';
+            gsap.to(main, {
+                scale: 1,
+                opacity: 1,
+                duration: 0.6,
+                ease: "power2.out"
+            });
+
+            document.getElementById('nav-tag').innerText = 'Ground-Effect Vehicle Innovation';
+        }
+
+        function initAnimations() {
+            gsap.utils.toArray(".reveal").forEach((el) => {
+                gsap.to(el, {
+                    scrollTrigger: {
+                        trigger: el,
+                        start: "top 90%",
+                        toggleActions: "play none none reverse"
+                    },
+                    opacity: 1,
+                    y: 0,
+                    duration: 1.2,
+                    ease: "power3.out"
+                });
+            });
+        }
+        initAnimations();
+    </script>
+</body>
+</html>
